@@ -1,0 +1,20 @@
+{
+  "name": "scores",
+  "version": "1.0.0",
+  "description": "Input and Keep scores for any given players, local-storage used to continue session",
+  "license": "ISC",
+  "author": "Martin Leathem",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "lit": "^3.3.2",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.1"
+  }
+}
