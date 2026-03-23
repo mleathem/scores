@@ -7,7 +7,7 @@ export class InputScore extends LitElement {
   @state() private score: number | "" = "";
 
   static styles = css`
-    .wrapper {
+    .wrapper div {
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -61,7 +61,7 @@ export class InputScore extends LitElement {
   render() {
     return html`
       <div class="wrapper">
-        <span class="player">${this.player}</span> to play
+        <div><span class="player">${this.player}</span> to play</div>
 
         <input
           type="number"
