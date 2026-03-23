@@ -55,14 +55,16 @@ export class PlayerSetup extends LitElement {
   `;
 
   private submit() {
-    const players = this.value
+    const rawPlayers = this.value
       .split(",")
       .map((p) => p.trim())
       .filter((p) => p.length > 0);
 
+    if (!this.verify(rawPlayers)) return; // validate
+
     this.dispatchEvent(
       new CustomEvent("players-submitted", {
-        detail: { players },
+        detail: { players: rawPlayers },
         bubbles: true,
         composed: true,
       }),
@@ -73,6 +75,34 @@ export class PlayerSetup extends LitElement {
     if (e.key === "Enter") {
       this.submit();
     }
+  }
+
+  // ** Validation
+  private verify(rawPlayers: string[]): boolean {
+    // Reject empty list
+    if (rawPlayers.length === 0) {
+      alert("Please enter at least one player name");
+      return false;
+    }
+
+    // Reject null, undefined, empty, or whitespace-only names
+    const invalid = rawPlayers.some((p) => p == null || p.trim().length === 0);
+
+    if (invalid) {
+      alert("Player names cannot be empty");
+      return false;
+    }
+
+    // Reject duplicates
+    const lower = rawPlayers.map((p) => p.toLowerCase());
+    const hasDuplicates = new Set(lower).size !== lower.length;
+
+    if (hasDuplicates) {
+      alert("Player names must be unique");
+      return false;
+    }
+
+    return true;
   }
 
   render() {
