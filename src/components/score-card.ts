@@ -20,7 +20,6 @@ export class ScoreCard extends LitElement {
 
   static styles = css`
     :host {
-      display: block;
     }
   `;
 
@@ -129,6 +128,7 @@ export class ScoreCard extends LitElement {
             <score-table
               .players=${this.players}
               .rounds=${this.rounds}
+              .currentPlayer=${this.currentPlayer}
             ></score-table>
           `
         : ""}

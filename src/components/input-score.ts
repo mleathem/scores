@@ -18,6 +18,7 @@ export class InputScore extends LitElement {
       font-weight: bold;
       color: #333;
       font-size: 2rem;
+      margin-bottom: 0.2rem;
     }
     input {
       width: 100px;

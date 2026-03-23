@@ -7,6 +7,7 @@ type Round = Record<string, number>;
 export class ScoreTable extends LitElement {
   @property({ type: Array }) players: string[] = [];
   @property({ type: Array }) rounds: Round[] = [];
+  @property({ type: String }) currentPlayer = "";
 
   static styles = css`
     table {
@@ -56,11 +57,16 @@ export class ScoreTable extends LitElement {
       white-space: nowrap;
     }
 
+    /* Player feedback */
+    th.active {
+      background-color: #666;
+      color: white;
+    }
     .pill {
       display: inline-block;
       margin-left: 0.4rem;
       padding: 0.2rem 0.4rem;
-      background: rgba(76, 175, 80, 0.8);
+      background: rgba(76, 175, 80, 0.9);
       color: white;
       border-radius: 4px;
       font-size: 0.75rem;
@@ -83,7 +89,7 @@ export class ScoreTable extends LitElement {
           <tr>
             ${this.players.map(
               (p) => html`
-                <th>
+                <th class=${p === this.currentPlayer ? "active" : ""}>
                   ${p}
                   ${this.total(p) > 0
                     ? html`<span class="pill">${this.total(p)}</span>`
