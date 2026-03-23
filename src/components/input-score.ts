@@ -2,28 +2,41 @@ import { LitElement, html, css } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
 @customElement("input-score")
-export class ScoreEntry extends LitElement {
-  @property({ type: Array }) players: string[] = [];
-
-  @state() private selected = "";
+export class InputScore extends LitElement {
+  @property({ type: String }) player = ""; // ← the current player
   @state() private score: number | "" = "";
 
   static styles = css`
-    select,
+    .wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .player {
+      font-weight: bold;
+      color: #333;
+      font-size: 2rem;
+    }
     input {
+      apearance: none;
       padding: 0.3rem;
-      margin-right: 0.5rem;
+      width: 80px;
     }
     button {
+      apearance: none;
+      cursor: pointer;
+      border: orange solid 1px;
       padding: 0.3rem 0.6rem;
+      background: orange;
+      color: white;
+    }
+    button:focus,
+    button:hover {
+      color: black;
+      background: darkorange;
+      border: darkorange solid 1px;
     }
   `;
-
-  firstUpdated() {
-    if (this.players.length > 0) {
-      this.selected = this.players[0];
-    }
-  }
 
   private submit() {
     if (this.score === "" || Number.isNaN(Number(this.score))) {
@@ -34,7 +47,7 @@ export class ScoreEntry extends LitElement {
     this.dispatchEvent(
       new CustomEvent("score-added", {
         detail: {
-          player: this.selected,
+          player: this.player,
           score: Number(this.score),
         },
         bubbles: true,
@@ -47,20 +60,18 @@ export class ScoreEntry extends LitElement {
 
   render() {
     return html`
-      <label>Add score:</label>
+      <div class="wrapper">
+        <span class="player">${this.player}</span> to play
 
-      <select @change=${(e: any) => (this.selected = e.target.value)}>
-        ${this.players.map((p) => html`<option value=${p}>${p}</option>`)}
-      </select>
+        <input
+          type="number"
+          .value=${this.score}
+          @input=${(e: any) => (this.score = Number(e.target.value))}
+          placeholder="Score"
+        />
 
-      <input
-        type="number"
-        .value=${this.score}
-        @input=${(e: any) => (this.score = Number(e.target.value))}
-        placeholder="Score"
-      />
-
-      <button @click=${this.submit}>Add</button>
+        <button @click=${this.submit}>Add</button>
+      </div>
     `;
   }
 }

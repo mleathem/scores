@@ -13,6 +13,11 @@ export class ScoreTable extends LitElement {
       border-collapse: collapse;
       margin-top: 1rem;
     }
+    @media (max-width: 500px) {
+      table {
+        min-width: 100%;
+      }
+    }
     th,
     td {
       border: 1px solid #999;
