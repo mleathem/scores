@@ -18,9 +18,14 @@ export class InputScore extends LitElement {
       font-size: 2rem;
     }
     input {
-      apearance: none;
+      width: 100px;
       padding: 0.3rem;
-      width: 80px;
+      border: 0;
+      outline: solid 1px #ccc;
+    }
+    input:focus {
+      background: #e8f0fe;
+      outline: solid 2px #007bff;
     }
     button {
       apearance: none;

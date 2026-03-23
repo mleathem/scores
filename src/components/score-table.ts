@@ -12,10 +12,11 @@ export class ScoreTable extends LitElement {
     table {
       border-collapse: collapse;
       margin-top: 1rem;
+      min-width: 490px;
     }
     @media (max-width: 500px) {
       table {
-        min-width: 100%;
+        min-width: calc(100% - 0.8rem);
       }
     }
     th,
@@ -30,6 +31,28 @@ export class ScoreTable extends LitElement {
     tfoot th {
       background: #d4f8d4;
       color: #064b06;
+    }
+
+    /* COUNT ROUNDS */
+    tbody {
+      counter-reset: round;
+    }
+
+    tbody tr {
+      counter-increment: round;
+      position: relative;
+    }
+
+    tbody tr td:last-of-type::after {
+      content: "#" counter(round);
+      position: absolute;
+      left: calc(100% + 0.2rem);
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: monospace;
+      font-size: 0.6rem;
+      color: #666;
+      white-space: nowrap;
     }
   `;
 

@@ -21,8 +21,6 @@ export class ScoreCard extends LitElement {
   static styles = css`
     :host {
       display: block;
-      padding: 1rem;
-      font-family: sans-serif;
     }
   `;
 
