@@ -1,10 +1,12 @@
 import { LitElement, html, css } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, property, state, query } from "lit/decorators.js";
 
 @customElement("input-score")
 export class InputScore extends LitElement {
-  @property({ type: String }) player = ""; // ← the current player
+  @property({ type: String }) player = "";
   @state() private score: number | "" = "";
+
+  @query("input") private scoreInput!: HTMLInputElement;
 
   static styles = css`
     .wrapper div {
@@ -43,6 +45,11 @@ export class InputScore extends LitElement {
     }
   `;
 
+  // retain focus - so user can simply enter score for next player
+  updated() {
+    this.scoreInput?.focus();
+  }
+
   private submit() {
     if (this.score === "" || Number.isNaN(Number(this.score))) {
       alert("Score must be a number");
@@ -63,6 +70,12 @@ export class InputScore extends LitElement {
     this.score = "";
   }
 
+  private handleKey(e: KeyboardEvent) {
+    if (e.key === "Enter") {
+      this.submit();
+    }
+  }
+
   render() {
     return html`
       <div class="wrapper">
@@ -72,6 +85,7 @@ export class InputScore extends LitElement {
           type="number"
           .value=${this.score}
           @input=${(e: any) => (this.score = Number(e.target.value))}
+          @keydown=${this.handleKey}
           placeholder="Score"
         />
 

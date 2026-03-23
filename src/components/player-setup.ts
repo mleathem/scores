@@ -69,6 +69,12 @@ export class PlayerSetup extends LitElement {
     );
   }
 
+  private handleKey(e: KeyboardEvent) {
+    if (e.key === "Enter") {
+      this.submit();
+    }
+  }
+
   render() {
     return html`
       <div class="player-setup">
@@ -84,6 +90,7 @@ export class PlayerSetup extends LitElement {
             .value=${this.value}
             placeholder="Player 1, Bob, CD"
             @input=${(e: any) => (this.value = e.target.value)}
+            @keydown=${this.handleKey}
           />
         </div>
         <div>
