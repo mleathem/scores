@@ -27,6 +27,7 @@ export class ScoreTable extends LitElement {
     }
     thead th {
       background: #ccc;
+      position: relative;
     }
     tfoot th {
       background: #d4f8d4;
@@ -54,6 +55,21 @@ export class ScoreTable extends LitElement {
       color: #666;
       white-space: nowrap;
     }
+
+    .pill {
+      display: inline-block;
+      margin-left: 0.4rem;
+      padding: 0.2rem 0.4rem;
+      background: rgba(76, 175, 80, 0.8);
+      color: white;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      position: absolute;
+      top: -9px;
+      right: 5px;
+      letter-spacing: 1px;
+    }
   `;
 
   private total(player: string) {
@@ -65,7 +81,16 @@ export class ScoreTable extends LitElement {
       <table>
         <thead>
           <tr>
-            ${this.players.map((p) => html`<th>${p}</th>`)}
+            ${this.players.map(
+              (p) => html`
+                <th>
+                  ${p}
+                  ${this.total(p) > 0
+                    ? html`<span class="pill">${this.total(p)}</span>`
+                    : ""}
+                </th>
+              `,
+            )}
           </tr>
         </thead>
 
