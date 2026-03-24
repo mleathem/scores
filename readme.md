@@ -5,6 +5,10 @@ Uses web-components.
 Add usernames - input their scores. Dynamic running totals.
 Local-storage used for return use.
 
+# DEMO:
+
+[https://score.dashref.com/]
+
 # Technology
 
 Vite,
