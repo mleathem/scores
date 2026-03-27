@@ -109,6 +109,24 @@ export class ScoreCard extends LitElement {
     this.saveGame();
   }
 
+  private onScoreEdited(e: any) {
+    const { player, roundIndex, newScore } = e.detail;
+
+    // clone rounds
+    const newRounds = [...this.rounds];
+
+    // update the specific round
+    newRounds[roundIndex] = {
+      ...newRounds[roundIndex],
+      [player]: newScore,
+    };
+
+    this.rounds = newRounds;
+
+    // persist
+    this.saveGame();
+  }
+
   render() {
     return html`
       ${!this.playersConfirmed
@@ -129,6 +147,7 @@ export class ScoreCard extends LitElement {
               .players=${this.players}
               .rounds=${this.rounds}
               .currentPlayer=${this.currentPlayer}
+              @score-edited=${this.onScoreEdited}
             ></score-table>
           `
         : ""}

@@ -84,6 +84,7 @@ export class InputScore extends LitElement {
 
         <input
           type="number"
+          maxlength="3"
           .value=${this.score}
           @input=${(e: any) => (this.score = Number(e.target.value))}
           @keydown=${this.handleKey}
