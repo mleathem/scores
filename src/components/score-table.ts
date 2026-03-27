@@ -83,6 +83,10 @@ export class ScoreTable extends LitElement {
       letter-spacing: 1px;
     }
 
+    td {
+      user-select: none;
+    }
+
     td.updated span {
       color: red;
     }
@@ -107,19 +111,14 @@ export class ScoreTable extends LitElement {
     return this.rounds.reduce((sum, r) => sum + (r[player] ?? 0), 0);
   }
 
-  // long‑press handlers used in template
-  startHold = (e: MouseEvent, roundIndex: number, player: string) => {
-    /*
+  // ** long‑press to edit score
+  startHold = (roundIndex: number, player: string) => {
     this.cancelHold(); // safety
 
     this.holdTimer = window.setTimeout(() => {
       this.editScore(roundIndex, player);
     }, EditUserHoldTime);
-    */
-    // alert("YUP");
-    this.editScore(roundIndex, player);
   };
-
   cancelHold = () => {
     if (this.holdTimer !== null) {
       clearTimeout(this.holdTimer);
@@ -132,16 +131,22 @@ export class ScoreTable extends LitElement {
     const oldScore = round[player] ?? 0;
 
     const newScore = prompt(
-      `Edit score for ${player}\nRound #${roundIndex + 1}`,
+      `Edit score \n${player} in Round #${roundIndex + 1}`,
       String(oldScore),
     );
 
+    // ** user pressed Cancel → do nothing
     if (newScore === null) return;
 
+    // ** convert to number
     const parsed = Number(newScore);
-    if (Number.isNaN(parsed)) return;
 
-    // immutable update of rounds
+    // ** if invalid - alert and fail
+    if (Number.isNaN(parsed)) {
+      alert("Value was not a number – did not change!");
+      return;
+    }
+
     const newRounds = [...this.rounds];
     newRounds[roundIndex] = {
       ...newRounds[roundIndex],
@@ -154,7 +159,7 @@ export class ScoreTable extends LitElement {
 
     this.addLogEntry(roundIndex, player, oldScore, parsed);
 
-    // and dispatch so we can update the local-storage
+    // ** dispatch so parent can save to localStorage
     this.dispatchEvent(
       new CustomEvent("score-edited", {
         detail: {
@@ -208,10 +213,12 @@ export class ScoreTable extends LitElement {
                   const cls = this.updatedCells.has(key) ? "updated" : "";
                   return html`
                     <td
-                      @mousedown=${(e: MouseEvent) =>
-                        this.startHold(e, roundIndex, p)}
+                      @mousedown=${() => this.startHold(roundIndex, p)}
                       @mouseup=${this.cancelHold}
                       @mouseleave=${this.cancelHold}
+                      @touchstart=${() => this.startHold(roundIndex, p)}
+                      @touchend=${this.cancelHold}
+                      @touchcancel=${this.cancelHold}
                       class=${cls}
                     >
                       <span>${round[p] ?? ""}</span>
