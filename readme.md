@@ -7,7 +7,7 @@ Local-storage used for return use.
 
 # DEMO:
 
-[https://score.dashref.com/]
+[https://scores.dashref.com/](https://scores.dashref.com/)
 
 # Technology
 
