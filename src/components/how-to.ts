@@ -1,8 +1,11 @@
 import { LitElement, html, css } from "lit";
-import { customElement } from "lit/decorators.js"; // , property, state, query from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 
 @customElement("how-to")
 export class HowTo extends LitElement {
+  @property({ type: Boolean, attribute: "open-state" })
+  openDetailByDefault = false;
+
   static styles = css`
     :host {
       font-family: monospace, Consolas, "Courier New", Courier, monospace;
@@ -20,7 +23,8 @@ export class HowTo extends LitElement {
       width: 390px;
       font-size: 0.9rem;
       text-align: left;
-      margin: 1rem auto;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
     summary {
       font-weight: bold;
@@ -51,6 +55,7 @@ export class HowTo extends LitElement {
       transform-origin: center center;
       transition: transform 0.25s ease;
       margin-right: 0.5rem;
+      margin-top: -0.2rem;
     }
 
     details:not([open]) > summary::before {
@@ -77,18 +82,20 @@ export class HowTo extends LitElement {
       margin-left: 0.5rem;
     }
     details#how-to:not([open]) > summary::after {
-      content: "...";
+      content: "... +";
       margin-left: 0.5rem;
     }
   `;
 
   render() {
     return html`
-      <details open id="how-to">
+      ${this.openState}
+
+      <details id="how-to" ?open=${this.openDetailByDefault}>
         <summary>Instructions</summary>
 
         <div>
-          <details open>
+          <details ?open=${this.openDetailByDefault}>
             <summary>Setup: Enter Names</summary>
             <div>
               <p>Enter the names of the players separated by commas.</p>

@@ -9,17 +9,23 @@ export class PlayerSetup extends LitElement {
 
   static styles = css`
     :host {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 1rem;
-
       font-size: 1.5rem;
     }
+    :host::before {
+      content: "";
+      display: block;
+      background-image: url(/apple-touch-icon.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 6rem;
+      height: 6rem;
+    }
+
     div {
-      margin: 1rem 0;
+      margin: 0 0 1rem;
     }
     label strong {
       font-size: 2rem;
@@ -131,7 +137,7 @@ export class PlayerSetup extends LitElement {
         </div>
 
         <aside>
-          <how-to></how-to>
+          <how-to open-state></how-to>
         </aside>
       </div>
     `;

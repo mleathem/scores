@@ -22,6 +22,7 @@ export class InputScore extends LitElement {
     }
     input {
       width: 100px;
+      margin: 0 auto;
       padding: 0.3rem;
       border: 0;
       outline: solid 1px #ccc;

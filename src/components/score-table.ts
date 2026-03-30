@@ -24,8 +24,8 @@ export class ScoreTable extends LitElement {
   static styles = css`
     table {
       border-collapse: collapse;
-      margin-top: 1rem;
       min-width: 490px;
+      margin-top: 1rem;
     }
     @media (max-width: 500px) {
       table {
@@ -98,7 +98,7 @@ export class ScoreTable extends LitElement {
 
     aside {
       color: red;
-      margin-top: 1rem;
+      margin-top: 2rem;
       font-size: 0.85rem;
     }
     aside ul {
