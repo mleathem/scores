@@ -1,6 +1,8 @@
 import { LitElement, html, css } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
+import "./how-to.js";
+
 type Round = Record<string, number>;
 
 const EditUserHoldTime = 1000;
@@ -251,6 +253,10 @@ export class ScoreTable extends LitElement {
             </aside>
           `
         : null}
+
+      <aside>
+        <how-to></how-to>
+      </aside>
     `;
   }
 }

@@ -1,8 +1,6 @@
 import { LitElement, html, css } from "lit";
 import { customElement, state } from "lit/decorators.js";
 
-// TODO: make sure each player name is unique, and not ''
-
 import "./how-to.js";
 
 @customElement("player-setup")
@@ -53,6 +51,9 @@ export class PlayerSetup extends LitElement {
       color: black;
       background: darkorange;
       border: darkorange solid 3px;
+    }
+    aside {
+      margin-top: 2rem;
     }
   `;
 
