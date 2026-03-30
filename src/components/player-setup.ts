@@ -3,6 +3,8 @@ import { customElement, state } from "lit/decorators.js";
 
 // TODO: make sure each player name is unique, and not ''
 
+import "./how-to.js";
+
 @customElement("player-setup")
 export class PlayerSetup extends LitElement {
   @state() private value = "";
@@ -126,6 +128,10 @@ export class PlayerSetup extends LitElement {
         <div>
           <button @click=${this.submit}>Start Game</button>
         </div>
+
+        <aside>
+          <how-to></how-to>
+        </aside>
       </div>
     `;
   }
