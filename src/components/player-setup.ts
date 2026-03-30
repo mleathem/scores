@@ -14,10 +14,11 @@ export class PlayerSetup extends LitElement {
     :host::before {
       content: "";
       display: block;
-      background-image: url(/apple-touch-icon.png);
-      background-size: contain;
+      background-image: url(/scores-logo.png);
+      /* SET THIS! @TODO - must me uploadd to /scores-logo.png  */
       background-repeat: no-repeat;
       position: relative;
+      background-size: contain;
       top: 0;
       left: 0;
       width: 6rem;
