@@ -16,6 +16,7 @@ TypeScript,
 Lit
 
 # TODO:
+CSS shared styles. eg. button
 
 ## SCORE INPUT:
 
